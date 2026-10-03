@@ -1,4 +1,4 @@
-# SETU---Data-Handling-and-Infrastructure-
+# Data Handling and Infrastructure
 ## Milestone 1 - Data type and storage
 ### 1. Raw data storage - Where the Raw Data Will Live
 The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans-10-sectors/data) is stored in a Google Cloud Storage (GCS) bucket as raw source files. These files are kept exactly as they were originally downloaded and are never edited or overwritten. This ensures that there is always a trustworthy copy of the original data available when needed. The raw files are also loaded into BigQuery, allowing the data to be queried and analyzed efficiently while still preserving the original version. Keeping an immutable raw data layer helps maintain data quality, supports reproducibility, and makes it easier to reuse the same dataset for future analytics, AI, and machine learning projects without having to collect the data again.
