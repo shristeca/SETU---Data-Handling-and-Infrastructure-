@@ -2,6 +2,7 @@
 ## Milestone 1 - Data type and storage
 ### 1. Raw data storage - Where the Raw Data Will Live
 The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans-10-sectors/data) is stored in a Google Cloud Storage (GCS) bucket as raw source files. These files are kept exactly as they were originally downloaded and are never edited or overwritten. This ensures that there is always a trustworthy copy of the original data available when needed. The raw files are also loaded into BigQuery, allowing the data to be queried and analyzed efficiently while still preserving the original version. Keeping an immutable raw data layer helps maintain data quality, supports reproducibility, and makes it easier to reuse the same dataset for future analytics, AI, and machine learning projects without having to collect the data again.
+
 <img width="876" height="268" alt="image" src="https://github.com/user-attachments/assets/5123e404-88e1-4dbb-ac9e-6255bf9b7ecd" />
 
 ### 2.Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
@@ -12,6 +13,7 @@ The raw data will be analyzed and processed in BigQuery using SQL to join the re
 
 **Sample code on how to store the processed data in GCS as Parquet file**
 <img width="550" height="305" alt="image" src="https://github.com/user-attachments/assets/1a982440-2d6b-4a5d-9a77-7ed4689778be" />
+
 <img width="457" height="292" alt="image" src="https://github.com/user-attachments/assets/48d88837-290c-4bb8-9497-83a06ad4ab4c" />
 
 
