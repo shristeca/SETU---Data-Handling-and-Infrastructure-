@@ -1,14 +1,8 @@
 # SETU---Data-Handling-and-Infrastructure-
 ## Milestone 1 - Data type and storage
 ### 1. Raw data storage - Where the Raw Data Will Live
-The raw data will be stored in an object-storage-based data lake structure. For this project, the original CSV files downloaded from the Kaggle dataset will be stored in Google cloud storage in the raw layer. The files will remain unchanged to preserve the original source data and enable reproducibility.
-
-The raw data will be stored in Google Cloud Storage (GCS) as part of the project's data lake architecture. The original CSV files obtained from Kaggle will be retained in their unchanged format within the Bronze (Raw) layer. Keeping the source files intact ensures reproducibility, supports auditing, and provides a reliable foundation for all downstream data processing, analytics, and machine learning activities.
-Object storage is appropriate because:
-
-The data consists of files rather than transactional records.
-Raw data should remain immutable.
-The same data can be reused for multiple AI models.
+The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans-10-sectors/data) is stored in a Google Cloud Storage (GCS) bucket as raw source files. These files are kept exactly as they were downloaded and are never modified, ensuring the raw data remains a reliable source of truth. Because the dataset is file-based rather than transactional, maintaining an immutable raw data layer helps preserve data integrity, supports reproducibility, and allows the same data to be reused across multiple AI and machine learning models without requiring it to be collected again.
+<img width="876" height="268" alt="image" src="https://github.com/user-attachments/assets/5123e404-88e1-4dbb-ac9e-6255bf9b7ecd" />
 
 
 ### 2. Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
@@ -132,3 +126,6 @@ The main files being the loan_portfolio.csv the supporting files will be macro_s
 ### Reproducibility of Data Collection and Preprocessing
 The data used in this project originates from the Kaggle dataset "Credit Risk Dataset – 50K Loans, 10 Sectors", which contains five CSV files. The dataset can be reproduced by downloading the files from Kaggle and uploading them unchanged in a Google Cloud Storage (GCS) raw-data bucket (gs://credit-risk-raw/) to preserve the original source data and ensure reproducibility.
 To reproduce the processed dataset, Apache Spark will execute a documented preprocessing pipeline. The pipeline will load the raw CSV files from GCS, validate data types, handle missing values and duplicates, standardize categorical fields, convert the data to Parquet format, and store the results in a curated GCS bucket (gs://credit-risk-curated/). Relevant datasets will then be joined, engineered features will be created, and a time-based train/validation/test split (2015-2020, 2021-2022, 2023-2024) will be applied to prevent data leakage. The final feature datasets will be stored as versioned Parquet files in a features bucket (gs://credit-risk-features/). All Spark scripts and transformation logic will be maintained and well documented, allowing another user to reproduce the complete data pipeline from the original Kaggle source files to the final machine learning datasets.
+
+
+
