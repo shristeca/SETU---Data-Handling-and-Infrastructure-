@@ -5,9 +5,13 @@ The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/c
 <img width="876" height="268" alt="image" src="https://github.com/user-attachments/assets/5123e404-88e1-4dbb-ac9e-6255bf9b7ecd" />
 
 ### 2.Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
-The raw data will be analyzed and processed in BigQuery using SQL to join the relevant tables and select the columns required for this project. The processed dataset will then be exported and stored separately in Google Cloud Storage (GCS) as Parquet files using Python. As the dataset contains a large number of columns, additional analysis is required to determine the most relevant features, and screenshots of the proposed processing approach have been attached for reference.
+The raw data will be analyzed and processed in BigQuery using SQL to join the relevant tables and select the columns required for this project. The processed dataset will then be exported and stored separately in Google Cloud Storage (GCS) as Parquet files using Python. As the dataset contains a large number of columns, additional analysis is required to determine the most relevant features, and screenshots of the proposed processing approach have been attached for reference. The dataset extracted will be used to predict the probability that a loan defaults under different economic conditions and sectors, and what is the resulting expected portfolio loss?
+
+<img width="445" height="117" alt="image" src="https://github.com/user-attachments/assets/638d5777-2753-4e4e-8c42-34f11a0fc0fd" />
+
 **Big Query for Analysis**
 <img width="941" height="405" alt="image" src="https://github.com/user-attachments/assets/79dd852e-74c5-43bd-8635-d015438d5cda" />
+
 **Sample code on how to store the processed data in GCS as Parquet file**
 <img width="550" height="305" alt="image" src="https://github.com/user-attachments/assets/1a982440-2d6b-4a5d-9a77-7ed4689778be" />
 <img width="457" height="292" alt="image" src="https://github.com/user-attachments/assets/48d88837-290c-4bb8-9497-83a06ad4ab4c" />
@@ -17,8 +21,13 @@ The raw data will be analyzed and processed in BigQuery using SQL to join the re
 ### 3.Database / object storage decision - database, object storage, file system, or other solution
 A data lake approach was chosen for this project to keep the data flexible and easy to work with as it moves through different stages of analysis and preparation. Google Cloud Storage (GCS) is used to store both the raw and processed datasets because it provides reliable, scalable, and cost-effective storage for large files. BigQuery is used for data exploration and SQL-based processing, allowing the required tables to be joined and transformed without the need to manage database infrastructure. The processed data is then stored as Parquet files, which take up less storage space and provide faster performance for analytics and machine learning tasks compared to CSV files. This approach is more scalable and easier to manage than storing and processing the data on a traditional local file system.
 
+Below is the Architecture flow planned for this project.
+
+<img width="237" height="258" alt="image" src="https://github.com/user-attachments/assets/15b0fde1-84a5-4633-9903-9ba1bdb73452" />
+
+
 ### 4. Data versioning - how different versions of the data will be identified and tracked
-Data versioning will be managed by maintaining separate raw, processed, and training-ready datasets within Google Cloud Storage (GCS). The raw files downloaded from Kaggle will remain unchanged and serve as the master source of truth. Whenever changes are made during preprocessing, a new version of the processed dataset will be generated and stored as a separate Parquet file with a version identifier and timestamp. For example:
+Data versioning will be managed by maintaining separate raw, processed, and training-ready datasets within Google Cloud Storage (GCS). The raw files downloaded from Kaggle will remain unchanged. Whenever changes are made during preprocessing, a new version of the processed dataset will be generated and stored as a separate Parquet file with a version identifier. For example:
 
  raw/loan_portfolio.csv 
  
@@ -32,7 +41,7 @@ Data versioning will be managed by maintaining separate raw, processed, and trai
  
  test/credit_risk_test_v1.parquet 
  
-A new version will be created whenever significant changes are made, such as adding new features, modifying SQL joins, applying additional data cleaning steps, or updating preprocessing logic. The SQL queries and Python scripts used to create each version will also be retained, allowing changes to be tracked and any previous version of the dataset to be reproduced if required.
+A new version will be created whenever significant changes are made, such as adding new features, modifying SQL joins, applying additional data cleaning steps, or updating preprocessing logic. The SQL queries and Python scripts used to create each version will also be retained, allowing changes to be tracked and any previous version of the dataset to be reproduced if required. Below is a sample of how the version will look like.
 
 <img width="258" height="287" alt="image" src="https://github.com/user-attachments/assets/60f81ce9-f570-4fdd-836f-dc42ddeba3f7" />
 
@@ -49,7 +58,7 @@ All source code, notebooks, and project documentation will be maintained in a Gi
 
 
 ### 6. Data split / validation strategy - clear and appropriate data-splitting strategy
-A time-based train, validation, and test split will be used to prevent data leakage and ensure the model is evaluated on future data. Approximately 70% of the data (2015-2020) will be used for training, 15% (2021-2022) for validation and hyperparameter tuning, and 15% (2023-2024) for final testing. The split will be performed on the processed dataset after the required data preparation steps have been completed. The resulting datasets will be stored as versioned Parquet files in Google Cloud Storage (GCS). Model performance will also be evaluated across the different borrower sectors and economic conditions to ensure that it generalizes well under varying business environments.
+A time-based train, validation, and test split will be used to prevent data leakage and ensure the model is evaluated on future data. Approximately 70% of the data (2015-2020) will be used for training, 15% (2021-2022) for validation, and 15% (2023-2024) for final testing. The split will be performed on the processed dataset after the required data preparation steps have been completed. The resulting datasets will be stored as versioned Parquet files in Google Cloud Storage (GCS). Model performance will also be evaluated across the different borrower sectors and economic conditions to ensure that it generalizes well under varying business environments.
 
 ### 7/8. Feature description, data types and formats
 The three datasets considered for model development are loan_portfolio.csv, macro_stress_scenarios.csv, and portfolio_metrics.csv with loan_portfolio.csv serving as the primary source of loan-level information and the other two files providing supporting economic and portfolio-level metrics. Below are the features and description for the csv's considered.
