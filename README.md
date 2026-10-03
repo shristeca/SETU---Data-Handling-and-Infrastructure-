@@ -7,8 +7,6 @@ The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/c
 ### 2.Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
 The raw data will be analyzed and processed in BigQuery using SQL to join the relevant tables and select the columns required for this project. The processed dataset will then be exported and stored separately in Google Cloud Storage (GCS) as Parquet files using Python. As the dataset contains a large number of columns, additional analysis is required to determine the most relevant features, and screenshots of the proposed processing approach have been attached for reference. The dataset extracted will be used to predict the probability that a loan defaults under different economic conditions and sectors, and what is the resulting expected portfolio loss?
 
-<img width="445" height="117" alt="image" src="https://github.com/user-attachments/assets/638d5777-2753-4e4e-8c42-34f11a0fc0fd" />
-
 **Big Query for Analysis**
 <img width="941" height="405" alt="image" src="https://github.com/user-attachments/assets/79dd852e-74c5-43bd-8635-d015438d5cda" />
 
