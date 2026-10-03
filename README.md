@@ -1,51 +1,32 @@
 # SETU---Data-Handling-and-Infrastructure-
 ## Milestone 1 - Data type and storage
-### 1. Raw data storage - Where the Raw Data Will Live
-The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans-10-sectors/data) is stored in a Google Cloud Storage (GCS) bucket as raw source files. These files are kept exactly as they were downloaded and are never modified, ensuring the raw data remains a reliable source of truth. Because the dataset is file-based rather than transactional, maintaining an immutable raw data layer helps preserve data integrity, supports reproducibility, and allows the same data to be reused across multiple AI and machine learning models without requiring it to be collected again.
+### Raw data storage - Where the Raw Data Will Live
+The data collected from [Kaggle](https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans-10-sectors/data) is stored in a Google Cloud Storage (GCS) bucket as raw source files. These files are kept exactly as they were originally downloaded and are never edited or overwritten. This ensures that there is always a trustworthy copy of the original data available when needed. The raw files are also loaded into BigQuery, allowing the data to be queried and analyzed efficiently while still preserving the original version. Keeping an immutable raw data layer helps maintain data quality, supports reproducibility, and makes it easier to reuse the same dataset for future analytics, AI, and machine learning projects without having to collect the data again.
 <img width="876" height="268" alt="image" src="https://github.com/user-attachments/assets/5123e404-88e1-4dbb-ac9e-6255bf9b7ecd" />
 
+### Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
+The raw data will be analyzed and processed in BigQuery using SQL to join the relevant tables and select the columns required for this project. The processed dataset will then be exported and stored separately in Google Cloud Storage (GCS) as Parquet files using Python. As the dataset contains a large number of columns, additional analysis is required to determine the most relevant features, and screenshots of the proposed processing approach have been attached for reference.
+**Big Query for Analysis**
+<img width="941" height="405" alt="image" src="https://github.com/user-attachments/assets/79dd852e-74c5-43bd-8635-d015438d5cda" />
+**Sample code on how to store the processed data in GCS as Parquet file**
+<img width="550" height="305" alt="image" src="https://github.com/user-attachments/assets/1a982440-2d6b-4a5d-9a77-7ed4689778be" />
+<img width="457" height="292" alt="image" src="https://github.com/user-attachments/assets/48d88837-290c-4bb8-9497-83a06ad4ab4c" />
 
-### 2. Processed data storage & file formats - Where Processed Data Will Be Stored and File Formats
-After data cleaning and transformation, the processed data will be stored in the processed layer of the data lake in Parquet format within Google Cloud Storage (GCS). Parquet has been selected because it offers 
-efficient data compression, 
-faster query performance, and is optimized for analytical workloads.
-supports columnar storage for faster analytical queries, 
-integrates well with Apache Spark and 
-is widely used in modern data engineering and machine learning workflows.
+
 
 ### 3.Database / object storage decision - database, object storage, file system, or other solution
-For this project, object storage using a Data Lake architecture will be used instead of a relational database or a traditional file system.
-
-Why not a database?
-
-The project focuses primarily on:
-
-Data ingestion
-Data cleaning and transformation
-Feature engineering
-Machine learning model training
-
-rather than transactional operations such as frequent inserts, updates, and deletes, which are the primary strengths of relational databases.
-
-Why not a traditional file system?
-
-Traditional file systems are suitable for storing files on a single machine or server but become difficult to manage as data volumes grow. They offer limited scalability, are not optimized for distributed data processing, and do not integrate as effectively with big data tools such as Apache Spark and cloud analytics platforms.
-
-Why object storage?
-
-Object storage provides:
-
-Storage of large datasets at scale
-Efficient processing with Apache Spark
-Clear separation of raw and processed data
-Easy dataset versioning and management
-Cost-effective cloud storage
-Integration with modern analytics and machine learning tools
+A data lake approach was chosen for this project to keep the data flexible and easy to work with as it moves through different stages of analysis and preparation. Google Cloud Storage (GCS) is used to store both the raw and processed datasets because it provides reliable, scalable, and cost-effective storage for large files. BigQuery is used for data exploration and SQL-based processing, allowing the required tables to be joined and transformed without the need to manage database infrastructure. The processed data is then stored as Parquet files, which take up less storage space and provide faster performance for analytics and machine learning tasks compared to CSV files. This approach is more scalable and easier to manage than storing and processing the data on a traditional local file system.
 
 ### 4. Data versioning - how different versions of the data will be identified and tracked
 
 ### 5. Data access - how the system/code will access the data
-The system will access data directly from Google Cloud Storage (GCS) using Apache Spark. Spark will read and write data using the GCS connector, while authentication will be managed through service account credentials. This approach enables secure, scalable, and efficient access to data throughout the pipeline.
+Python acted as the integration layer to move data between Kaggle, Google Cloud Storage (GCS), and BigQuery. The dataset was downloaded directly from Kaggle using the kagglehub library.
+<img width="649" height="160" alt="image" src="https://github.com/user-attachments/assets/215be3a6-15bc-4a1f-a132-924ad07e4ca5" />
+
+Access to Google Cloud services was authenticated through the Google Colab environment using the project's Google Cloud credentials. The google-cloud-storage and google-cloud-bigquery Python libraries were used to interact with GCS and BigQuery. Using these libraries, a GCS bucket was created, the raw data files were uploaded to cloud storage, and the datasets were loaded into BigQuery for analysis and SQL-based processing. The google-cloud-storage and google-cloud-bigquery Python libraries were used to interact with GCS and BigQuery. Using these libraries, a GCS bucket was created, the raw data files were uploaded to cloud storage, and the datasets were loaded into BigQuery for analysis and SQL-based processing.
+
+<img width="510" height="269" alt="image" src="https://github.com/user-attachments/assets/74b92aa4-340d-44f8-b6fe-b8a1058696c2" />
+
 
 ### 6. Data split / validation strategy - clear and appropriate data-splitting strategy
 A time-based train/dev/test split will be implemented using Apache Spark to prevent data leakage. Loans originated between 2015 and 2020 will be used for training, loans originated between 2021 and 2022 will be used for validation, and loans originated between 2023 and 2024 will be reserved for final testing. The split will be performed after feature engineering and the resulting datasets will be stored as versioned Parquet files. Additional model evaluation will be conducted across borrower sectors and macroeconomic stress scenarios to assess generalization under different business and economic conditions.
