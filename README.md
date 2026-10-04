@@ -48,6 +48,7 @@ A new version will be created whenever significant changes are made, such as add
     
 ### 5. Data access - how the system/code will access the data
 Python acted as the integration layer to move data between Kaggle, Google Cloud Storage (GCS), and BigQuery. The dataset was downloaded directly from Kaggle using the kagglehub library.
+
 <img width="649" height="160" alt="image" src="https://github.com/user-attachments/assets/215be3a6-15bc-4a1f-a132-924ad07e4ca5" />
 
 Access to Google Cloud services was authenticated through the Google Colab environment using the project's Google Cloud credentials. The google-cloud-storage and google-cloud-bigquery Python libraries were used to interact with GCS and BigQuery. Using these libraries, a GCS bucket was created, the raw data files were uploaded to cloud storage, and the datasets were loaded into BigQuery for analysis and SQL-based processing. The google-cloud-storage and google-cloud-bigquery Python libraries were used to interact with GCS and BigQuery. Using these libraries, a GCS bucket was created, the raw data files were uploaded to cloud storage, and the datasets were loaded into BigQuery for analysis and SQL-based processing.
