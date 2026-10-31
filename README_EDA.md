@@ -30,3 +30,17 @@ URL: https://www.kaggle.com/datasets/sergionefedov/credit-risk-dataset-50k-loans
 All 7 CSV files were directly downloaded from Kaggle using the Kaggle Dataset API. Raw copies of the files are stored in Google Cloud Storage (GCS) for backup and reproducibility and also into Google BigQuery to support data exploration, querying, and pipeline development.
 
 **Bias and Ethical Considerations** - As this is a synthetic dataset, it may not fully reflect real-world lending behaviour and could contain biases that can include Sector-specific default patterns that may not accurately represent real-world markets, Class imbalance between defaulted and non-defaulted loans, Simplified or overly complicated relationships between various conditions and default behaviour. As a result, model predictions should be interpreted carefully and used as a decision-support tool rather than the sole basis for lending decisions. Regular evaluation is important to ensure the model remains fair, transparent, and free from unintended bias.
+
+### Data Description
+As mentioned above the dataset is a collection of 7 csv files with 50,000 loans across 10 different sector and all files contains various information about the loans.
+
+| Dataset | Rows | Description | General Purpose |
+|----------|---------:|-------------|----------------|
+| **loan_portfolio.csv** | 50,000 | Individual loan records containing PD, LGD, EAD, default outcomes, and borrower/loan characteristics. | Supports loan-level credit risk analysis, default prediction, and expected loss estimation. |
+| **credit_ratings.csv** | 17,939 | Annual credit rating migrations for 2,000 issuers from 2015 to 2024. | Tracks changes in credit quality over time and enables rating transition analysis. |
+| **macro_stress_scenarios.csv** | 60 | Probability of default (PD) uplifts across 6 economic scenarios and 10 sectors. | Supports stress testing and the assessment of sector-specific impacts under different economic conditions. |
+| **portfolio_metrics.csv** | 120 | Monthly portfolio-level metrics including EAD, Expected Loss, VaR, CVaR, and concentration measures. | Provides portfolio performance and risk monitoring information. |
+| **vintage_analysis.csv** | 2,160 | Cumulative default curves by origination quarter and Months-on-Book (MOB 1–60). | Supports vintage analysis and examination of how default rates evolve over a loan's lifecycle. |
+
+
+The primary dataset used for exploratory analysis and machine learning model development is loan_portfolio.csv, as it contains the target variable (defaulted) and the key borrower and loan characteristics required for prediction. 
