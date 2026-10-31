@@ -41,6 +41,61 @@ As mentioned above the dataset is a collection of 7 csv files with 50,000 loans 
 | **macro_stress_scenarios.csv** | 60 | Probability of default (PD) uplifts across 6 economic scenarios and 10 sectors. | Supports stress testing and the assessment of sector-specific impacts under different economic conditions. |
 | **portfolio_metrics.csv** | 120 | Monthly portfolio-level metrics including EAD, Expected Loss, VaR, CVaR, and concentration measures. | Provides portfolio performance and risk monitoring information. |
 | **vintage_analysis.csv** | 2,160 | Cumulative default curves by origination quarter and Months-on-Book (MOB 1–60). | Supports vintage analysis and examination of how default rates evolve over a loan's lifecycle. |
+| **payments_history.csv** | 1,212,815 | Historical repayment records for individual loans, including payment timing and status. | Supports repayment behaviour analysis and delinquency trend monitoring. |
+
+In line with the project objectives, loan_portfolio.csv will the primary dataset used for EDA and machine learning model development because it contains the target variable (defaulted) and the predictor variables required for default classification. The secondary analysis is supported by macro_stress_scenarios.csv, which facilitates stress testing under different economic conditions, and portfolio_metrics.csv, which provides portfolio-level risk and loss measures for performance evaluation.
+The remaining datasets, payments_history.csv, credit_ratings.csv, and vintage_analysis.csv, provide additional information on repayment behaviour, credit rating migrations, and loan performance trends, respectively. However, they are outside the scope of the current phase of the project, which focuses on loan-level default prediction and portfolio risk assessment.
+
+**Data Types**
+
+The dataset contains a mixture of:
+
+Numerical Columns: Index(['maturity_months', 'credit_score', 'ead', 'coupon_rate', 'leverage',
+       'interest_coverage', 'debt_to_equity', 'pd_annual', 'lgd', 'el',
+       'unexpected_loss', 'rwa', 'defaulted', 'survival_months',
+       'recovery_rate', 'loss_given_default'],
+      dtype='object')
+Categorical Columns: Index(['loan_id', 'origination_date', 'maturity_date', 'sector', 'loan_type',
+       'collateral', 'initial_rating', 'default_date'],
+      dtype='object')
 
 
-The primary dataset used for exploratory analysis and machine learning model development is loan_portfolio.csv, as it contains the target variable (defaulted) and the key borrower and loan characteristics required for prediction. 
+Numerical variables: credit_score, ead, coupon_rate, leverage, interest_coverage, debt_to_equity, pd_annual, lgd, expected_loss, rwa.
+Categorical variables: sector, loan_type, initial_rating, collateral.
+Date variables: origination_date and other date-related fields where applicable.
+Target Variable
+
+The target variable is defaulted, which indicates whether a loan has defaulted.
+
+0 = Non-Defaulted Loan
+1 = Defaulted Loan
+
+This makes the problem a binary classification task.
+
+Time Range
+
+The dataset contains loan records originating between [earliest date] and [latest date], based on the origination_date field.
+
+
+Class Balance
+
+The target variable is distributed as follows:
+
+Non-Defaulted Loans: [x]%
+Defaulted Loans: [y]%
+
+This distribution will be assessed to determine whether class imbalance techniques are required during model development.
+
+Missingness
+
+Missing value analysis was performed across all variables. Overall, [x]% of values were missing across the dataset, with missing observations primarily found in [column names if applicable].
+
+(If there are no missing values, simply write:)
+
+No significant missing values were identified in the dataset.
+
+Known Limitations
+The dataset is synthetic and may not fully capture real-world lending behaviour.
+Relationships between borrower characteristics and default risk are based on simulated assumptions.
+The dataset may not reflect all economic, regulatory, or market conditions observed in actual loan portfolios.
+Results should therefore be interpreted as a demonstration of machine learning techniques rather than a direct representation of real-world credit risk.
