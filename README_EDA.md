@@ -62,6 +62,8 @@ Categorical variables: 'loan_id', 'maturity_date', 'sector', 'loan_type', 'colla
 Date variables: 'origination_date', 'default_date'
 
 ```
+print(loan_df.info())
+
 num_cols = loan_df.select_dtypes(include=['int64','float64']).columns
 
 cat_cols = loan_df.select_dtypes(include=['object','category']).columns
@@ -70,6 +72,9 @@ date_cols = loan_df.select_dtypes(include=['datetime64']).columns
 ```
 
 **Target Variable**
+```
+loan_df['defaulted'].value_counts()
+```
 
 The target variable is defaulted, which indicates whether a loan has defaulted.
 
@@ -79,6 +84,11 @@ The target variable is defaulted, which indicates whether a loan has defaulted.
 This makes the problem a binary classification task.
 
 **Time Range**
+
+```
+loan_df['origination_year'] = loan_df['origination_date'].dt.year
+loan_df[['origination_date', 'origination_year']].head()
+```
 
 The dataset contains loan records originating between Jan 2015 and Dec 2023, based on the origination_date field.
 
@@ -149,6 +159,8 @@ The majority of loans are non-defaulted, while a smaller proportion have default
 
 <img width="1489" height="990" alt="image" src="https://github.com/user-attachments/assets/33f2bc93-81c5-4717-b3a0-52d78fd5af54" />
 
+Based on the statistics and Histogram we have the below findings:
+
 #### Maturity Months
 
 Loan terms range from 12 to 120 months, with an average maturity of approximately 54 months. Most loans are medium-term, while a small number of long-term loans increase the average.
@@ -182,6 +194,8 @@ Debt-to-equity ratios vary across the portfolio. While most borrowers have moder
 Credit Score and Coupon Rate appear relatively well distributed, whereas EAD, Leverage, Interest Coverage and Debt-to-Equity contain more extreme values, indicating greater variation in borrower risk profiles.
 
 ### Skewness Analysis
+
+```loan_df[num_cols].skew().round(2).sort_values(ascending=False)```
 
 EAD, Debt-to-Equity and Interest Coverage are strongly right-skewed, while Credit Score and Coupon Rate are nearly symmetric.
 
@@ -330,11 +344,9 @@ Overall, the EDA suggests that Credit Score, Credit Rating, Coupon Rate, and Mat
                                  │
                                  ▼
                     ┌──────────────────────────┐
-                    │ Model Development        |
-                    │ Binary Classification    |
-                    │      Models              │
-                    │                          │
-                    │                          │
+                    │   Model Development      |
+                    │  Binary Classification   |
+                    │        Models            │
                     └────────────┬─────────────┘
                                  │
                                  ▼
@@ -361,13 +373,15 @@ The data pipeline was successfully implemented up to the Exploratory Data Analys
 - Correlation analysis
 - Numerical and categorical feature visualisations
 - Time-based analysis of portfolio characteristics
+- Storage of transformed datasets in Google Cloud Storage (GCS) using a raw and processed data structure 
 
-The successful completion of these tasks confirms that the data was correctly ingested, validated, and processed, providing a strong foundation for the subsequent feature engineering and model development stages. To support reproducibility, the full implementation of the data ingestion, validation, cleaning, and EDA pipeline is available in the link below. The notebook contains the Python code, intermediate outputs, and visualisations generated during the analysis.
+The successful completion of these tasks confirms that the data was correctly ingested, validated, processed, and stored, providing a strong foundation for the subsequent feature engineering and model development stages. Following data cleaning and transformation, the processed dataset was uploaded to Google Cloud Storage (GCS), with the original dataset retained in the raw layer and the transformed dataset stored in the processed layer to support data lineage, reproducibility, and future pipeline activities. To further support reproducibility, the full implementation of the data ingestion, validation, cleaning, storage, and EDA pipeline is available in the link [Project_AI_Infra_EDA.ipynb](https://github.com/shristeca/SETU---Data-Handling-and-Infrastructure-/blob/8eec9d356da8d4bc269f16ccae1e4613bb347a8c/Project_AI_Infra_EDA.ipynb). The notebook contains the Python code, intermediate outputs, and visualisations generated during the analysis.
 
-[Project_AI_Infra_EDA.ipynb](https://github.com/shristeca/SETU---Data-Handling-and-Infrastructure-/blob/8eec9d356da8d4bc269f16ccae1e4613bb347a8c/Project_AI_Infra_EDA.ipynb)
+<img width="737" height="290" alt="image" src="https://github.com/user-attachments/assets/df87d585-8f05-4bd2-ac9d-f9ccf4ba9440" />
+
 
 ### Next Step
 
 Despite the dataset being clean and free from missing values and duplicates, several issues remain for further investigation. Variables such as EAD, Debt-to-Equity, and Interest Coverage contain extreme values and exhibit strong positive skewness. In addition, the target variable is imbalanced, with fewer defaulted loans than non-defaulted loans. The relationship between some variables and the target may also be non-linear and could require additional feature engineering to improve model performance.
 
-Milestone 3 will focus on feature engineering, data preparation, and the development of predictive models. Different machine learning models will be evaluated and compared to identify the most suitable approach for predicting loan default probability.
+Milestone 3 will focus on feature engineering, data preparation, and the development of predictive models. The data will be split into training/dev/testing data and different machine learning models will be evaluated and compared to identify the most suitable approach for predicting loan default probability.
