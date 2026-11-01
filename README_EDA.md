@@ -101,10 +101,10 @@ Missing value analysis was performed across all variables across the 3 datasets 
 
 **Known Limitations**
 
-The dataset is synthetic and may not fully capture real-world lending behaviour.
-Relationships between borrower characteristics and default risk are based on simulated assumptions.
-The dataset may not reflect all economic, regulatory, or market conditions observed in actual loan portfolios.
-Results should therefore be interpreted as a demonstration of machine learning techniques rather than a direct representation of real-world credit risk.
+- The dataset is synthetic and may not fully capture real-world lending behaviour.
+- Relationships between borrower characteristics and default risk are based on simulated assumptions.
+- The dataset may not reflect all economic, regulatory, or market conditions observed in actual loan portfolios.
+- Results should therefore be interpreted as a demonstration of machine learning techniques rather than a direct representation of real-world credit risk.
 
 ### Exploratory Data Analysis
 
@@ -116,7 +116,8 @@ A quick review was conducted on the columns in Loan portfolio dataset to identif
 
 The below variables were removed from the modelling dataset as they contain information available only after a loan gets defaulted. Retaining these variables could introduce data leakage, causing the model to learn information that would not be available in a real-world prediction scenario.
 
-```remove_cols = [
+```
+remove_cols = [
     'pd_annual',
     'el',
     'unexpected_loss',
@@ -135,8 +136,6 @@ loan_df = loan_df.drop(columns=remove_cols)
 #### Defaulted vs Non-Defaulted loans
 
 <img width="589" height="455" alt="image" src="https://github.com/user-attachments/assets/c9938e63-efb7-41f4-99e8-907a80a1cddb" />
-
-#### Findings
 
 The majority of loans are non-defaulted, while a smaller proportion have defaulted. This indicates that loan default is a relatively infrequent event in the portfolio.
 
@@ -332,10 +331,10 @@ Overall, the EDA suggests that Credit Score, Credit Rating, Coupon Rate, and Mat
                                  ▼
                     ┌──────────────────────────┐
                     │ Model Development        |
-                    │ (Possible Models)        |
-                    │ Logistic Regression      │
-                    │ Random Forest            │
-                    │ XGBoost                  │
+                    │ Binary Classification    |
+                    │      Models              │
+                    │                          │
+                    │                          │
                     └────────────┬─────────────┘
                                  │
                                  ▼
