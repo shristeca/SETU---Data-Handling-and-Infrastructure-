@@ -50,20 +50,13 @@ The remaining datasets, payments_history.csv, credit_ratings.csv, and vintage_an
 
 The dataset contains a mixture of:
 
-Numerical Columns: Index(['maturity_months', 'credit_score', 'ead', 'coupon_rate', 'leverage',
-       'interest_coverage', 'debt_to_equity', 'pd_annual', 'lgd', 'el',
-       'unexpected_loss', 'rwa', 'defaulted', 'survival_months',
-       'recovery_rate', 'loss_given_default'],
-      dtype='object')
-Categorical Columns: Index(['loan_id', 'origination_date', 'maturity_date', 'sector', 'loan_type',
-       'collateral', 'initial_rating', 'default_date'],
-      dtype='object')
+Numerical variables: 'maturity_months', 'credit_score', 'ead', 'coupon_rate', 'leverage', 'interest_coverage', 'debt_to_equity', 'pd_annual', 'lgd', 'el', 'unexpected_loss', 'rwa', 'defaulted', 'survival_months', 'recovery_rate', 'loss_given_default'
 
+Categorical variables: 'loan_id', 'maturity_date', 'sector', 'loan_type', 'collateral', 'initial_rating'
 
-Numerical variables: credit_score, ead, coupon_rate, leverage, interest_coverage, debt_to_equity, pd_annual, lgd, expected_loss, rwa.
-Categorical variables: sector, loan_type, initial_rating, collateral.
-Date variables: origination_date and other date-related fields where applicable.
-Target Variable
+Date variables: 'origination_date', 'default_date'
+
+**Target Variable**
 
 The target variable is defaulted, which indicates whether a loan has defaulted.
 
@@ -72,30 +65,32 @@ The target variable is defaulted, which indicates whether a loan has defaulted.
 
 This makes the problem a binary classification task.
 
-Time Range
+**Time Range**
 
-The dataset contains loan records originating between [earliest date] and [latest date], based on the origination_date field.
+The dataset contains loan records originating between Jan 2015 and Dec 2023, based on the origination_date field.
 
-
-Class Balance
+**Class Balance**
 
 The target variable is distributed as follows:
 
-Non-Defaulted Loans: [x]%
-Defaulted Loans: [y]%
+Non-Defaulted Loans: 86.1%
+Defaulted Loans: 13.9%
 
 This distribution will be assessed to determine whether class imbalance techniques are required during model development.
 
-Missingness
+**Missingness**
 
-Missing value analysis was performed across all variables. Overall, [x]% of values were missing across the dataset, with missing observations primarily found in [column names if applicable].
+Missing value analysis was performed across all variables across the 3 datasets and no significant missing values were identified in the dataset.
 
-(If there are no missing values, simply write:)
+**Known Limitations**
 
-No significant missing values were identified in the dataset.
-
-Known Limitations
 The dataset is synthetic and may not fully capture real-world lending behaviour.
 Relationships between borrower characteristics and default risk are based on simulated assumptions.
 The dataset may not reflect all economic, regulatory, or market conditions observed in actual loan portfolios.
 Results should therefore be interpreted as a demonstration of machine learning techniques rather than a direct representation of real-world credit risk.
+
+### Exploratory Data Analysis
+
+**Target Variable**
+
+
